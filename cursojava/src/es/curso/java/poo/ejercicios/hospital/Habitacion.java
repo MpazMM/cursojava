@@ -6,8 +6,9 @@ public class Habitacion {
 	private Enfermo enfermo;
 	
 	
-	public Habitacion() {
+	public Habitacion(int numeroHabitacion) {
 		super();
+		this.numeroHabitacion = numeroHabitacion;
 	}
 
 	public Habitacion(int numeroHabitacion, Enfermo enfermo) {

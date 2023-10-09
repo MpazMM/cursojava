@@ -21,7 +21,5 @@ public class Paciente extends Persona{
 	public void comer() {
 		System.out.println("El paciente " + getNombre() + " está comiendo en la cafetería");
 	}
-	
-	
 
 }

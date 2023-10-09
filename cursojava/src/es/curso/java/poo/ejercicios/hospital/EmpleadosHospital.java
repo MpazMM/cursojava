@@ -23,9 +23,7 @@ public class EmpleadosHospital extends Persona {
 	}
 
 	public void fichar() {
-		for(EmpleadosHospital empleado : persona.getNombre()) {
-		System.out.println("El empleado " + getNombre() + " está fichando");
-	}
+		System.out.println("El empleado " + getNombre() + " está fichando en el turno " + this.turno);
 	}
 
 }
