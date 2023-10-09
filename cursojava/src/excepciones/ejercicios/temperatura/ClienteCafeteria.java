@@ -18,8 +18,6 @@ public class ClienteCafeteria {
 		this.nombreCliente = nombreCliente;
 	}
 	
-	
-	
 	public CoffeCup getCoffeCliente() {
 		return coffeCliente;
 	}

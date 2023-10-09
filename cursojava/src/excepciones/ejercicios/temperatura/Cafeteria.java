@@ -21,13 +21,13 @@ public class Cafeteria {
 		Cafeteria cafeteria = new Cafeteria("Rico café");
 		cafeteria.abrirCafeteria();
 
-		try {
-			cafeteria.tomarTazaCafe();
-		} catch (TooColdTemperatureException e) {
-			System.out.println(e.getMessage());
-		} catch (TooHotTemperatureException f) {
-			System.out.println(f.getMessage());
-		}
+//		try {
+//			cafeteria.tomarTazaCafe();
+//		} catch (TooColdTemperatureException e) {
+//			System.out.println(e.getMessage());
+//		} catch (TooHotTemperatureException f) {
+//			System.out.println(f.getMessage());
+//		}
 
 	}
 
@@ -41,8 +41,8 @@ public class Cafeteria {
 		System.out.println("Bienvenido a la cafetería " + this.nombreCafeteria);
 		cupCoffeAl();
 		clienteCafe();
-		cliente.setCoffeCliente(cupCoffe);
-		cliente.tomarTazaCafe();
+		this.cliente.setCoffeCliente(cupCoffe);
+		this.cliente.tomarTazaCafe();
 	}
 
 	public int cupCoffeAl() {
