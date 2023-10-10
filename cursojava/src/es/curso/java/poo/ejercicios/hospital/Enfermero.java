@@ -17,8 +17,16 @@ public class Enfermero extends EmpleadosHospital{
 		this.planta = planta;
 	}
 	
-	public void atenderPaciente() {
-		
+	public Paciente atenderPaciente(Paciente []paciente) {
+		Paciente pacienteAtendido = null;
+		for(Paciente pacienteConsulta : paciente) {
+			if(pacienteConsulta != null) {
+				
+				pacienteConsulta = null;
+				break;
+			}
+		}
+		return pacienteAtendido;
 	}
 
 }
