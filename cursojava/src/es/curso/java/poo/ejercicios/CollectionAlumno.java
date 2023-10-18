@@ -25,13 +25,16 @@ public class CollectionAlumno {
 		
 		String dniSolicitado = Utilidades.pideDatoTexto("Indique DNI");
 		for (Alumno alumno : listaAlumnos) {
-			if (alumno.getDni().equalsIgnoreCase(dniSolicitado)) {
+			if (dniSolicitado.equalsIgnoreCase(alumno.getDni())) {
 				listaAlumnos.remove(alumno);
-			}else {
-				System.out.println("Este alumno no se encuentra en la lista");
-		
 			}
+	
 		}
+		
+		for (Alumno alumno : listaAlumnos) {
+			System.out.println(alumno.getNombre());
+		}
+
 	}
 
 }
