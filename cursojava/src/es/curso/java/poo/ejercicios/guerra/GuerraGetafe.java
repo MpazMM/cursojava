@@ -22,9 +22,9 @@ public class GuerraGetafe {
 		    }
 		
 		
-		Nave nave1 = (Nave)nave[1];
+		Nave nave1 = (Nave)nave[0];
 		nave1.atacar();  
-		Nave nave2 = (Nave)nave[2];
+		Nave nave2 = (Nave)nave[1];
 		nave2.defender();
 		
 		
