@@ -15,11 +15,11 @@ public class GuerraGetafe {
 	
 	public void iniciarGuerra(VehiculoGuerra vehiculo) {
 		
-		List<Guerrero> guerrerosEnNave = new ArrayList<Guerrero>();
+//		List<Guerrero> guerrerosEnNave = new ArrayList<Guerrero>();
 		VehiculoGuerra[] nave = construyeVehiculos();
-		    for (VehiculoGuerra vehiculoGuerra : nave) {
-		        guerrerosEnNave.addAll(vehiculoGuerra.getGuerreros());
-		    }
+//		    for (VehiculoGuerra vehiculoGuerra : nave) {
+//		        guerrerosEnNave.addAll(vehiculoGuerra.getGuerreros());
+//		    }
 		
 		
 		Nave nave1 = (Nave)nave[0];
@@ -32,8 +32,6 @@ public class GuerraGetafe {
 
 	
 	VehiculoGuerra [] construyeVehiculos(){
-		
-		
 		Nave naveGuerra1 = null;
 		Nave naveGuerra2 = null;
 		
@@ -64,9 +62,9 @@ public class GuerraGetafe {
 
 			
 		}catch(LimiteValoresException e) {
-			System.out.println(e.getMessage());
+			System.out.println("Error generando gerreros. " + e.getMessage());
 		}catch(UnidadesPermitadasException f) {
-			System.out.println(f.getMessage());
+			System.out.println("Error generando nave. " + f.getMessage());
 		}
 		Nave [] naves = {naveGuerra1, naveGuerra2};	
 		return naves;

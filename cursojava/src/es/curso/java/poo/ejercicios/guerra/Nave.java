@@ -50,30 +50,25 @@ public class Nave extends VehiculoGuerra {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	
-	
+
 	
 	@Override
 	public int atacar() {
 		int ataqueTotalGuerreros = 0;
-	    for (Guerrero guerrero : getGuerreros()) {
+	    for (Guerrero guerrero : this.getGuerreros()) {
 	    	ataqueTotalGuerreros += guerrero.getFuerza();
 	    }
-		return ataqueTotalGuerreros;
+		return (int)(this.getAtaque()*Math.random() + ataqueTotalGuerreros * Math.random()/2);
 	}
 
 	@Override
 	public int defender(int ataque) {
 		int defensaTotalGuerreros = 0;
-		int resultadoAtaque = 0;
-	    for (Guerrero guerrero : getGuerreros()) {
+	    for (Guerrero guerrero : this.getGuerreros()) {
 	    	defensaTotalGuerreros += guerrero.getResistencia();
-	    	resultadoAtaque = ataque - defensaTotalGuerreros;
-	    	this.setPuntosVida(resultadoAtaque);
 	    }
-		return resultadoAtaque;
+	    int defensa = (int)(this.getAtaque()*Math.random() + defensaTotalGuerreros * Math.random()/2);
+		return ataque-defensa;
 	}
 	
 	
