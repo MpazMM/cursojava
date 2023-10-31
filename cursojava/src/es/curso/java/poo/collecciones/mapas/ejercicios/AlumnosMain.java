@@ -72,10 +72,10 @@ public class AlumnosMain {
 					System.out.println(entry.getKey());
 					encontrado = true;
 					break;
-
 				}
-
 			}
+			if(encontrado)
+				break;
 		}
 		if (!encontrado) {
 			System.out.println("El alumno no está en el colegio");
@@ -93,7 +93,7 @@ public class AlumnosMain {
 		System.out.println(notaMedia);
 	}
 
-	Map<String, Set<Alumno>> crearColegios() {
+	Map<String,Set<Alumno>> crearColegios() {
 
 		Alumno alumno1 = new Alumno("DNI1", "Alumno1", "Apellidos1", 7);
 		Alumno alumno2 = new Alumno("DNI2", "Alumno2", "Apellidos2", 4);
