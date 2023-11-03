@@ -18,29 +18,27 @@ public class BibliotecaMain {
 
 	}
 
-	private void iniciarMenu () throws SQLException {
+	private void iniciarMenu() throws SQLException {
 		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
 		String username = "root";
 		String password = "password";
-		
+
 		Connection connection = null;
-		PreparedStatement prepareStament=null;
+		PreparedStatement prepareStament = null;
 		ResultSet rs = null;
-		
+
 		List<Biblioteca> bibliotecas = null;
-		
+
 		try {
 
 			System.out.println("Estableciendo conexión");
 			connection = DriverManager.getConnection(url, username, password);
 			System.out.println("Conexión establecida");
-			
-			prepareStament = connection.prepareStatement(
-					"SELECT * FROM TB_BIBLIOTECA");
-			
-			
+
+			prepareStament = connection.prepareStatement("SELECT * FROM TB_BIBLIOTECA");
+
 			rs = prepareStament.executeQuery();
-			
+
 			while (rs.next()) {
 				System.out.println(rs.getLong("id"));
 				System.out.println(rs.getString("nombre"));
@@ -50,42 +48,47 @@ public class BibliotecaMain {
 			System.err.println("Ha habido un error " + e.getMessage());
 
 		} finally {
-			
+
 			try {
-				if (connection!=null) {
+				if (connection != null) {
 					connection.close();
 				}
-				if (prepareStament!=null)
+				if (prepareStament != null)
 					prepareStament.close();
-				if (rs!=null)
+				if (rs != null)
 					rs.close();
 			} catch (SQLException e) {
 
 				e.printStackTrace();
 			}
 		}
-		
-		
-		
-		int opcion=0;
+
+		int opcion = 0;
 		do {
-			String[] preguntas = {"1. Biblioteca 1","2. Biblioteca 2","3. Biblioteca 3","4. Biblioteca 4"};
+			String[] preguntas = { "1. Biblioteca 1", "2. Biblioteca 2", "3. Biblioteca 3", "4. Biblioteca 4" };
 			opcion = Utilidades.pintarMenu(preguntas, "Seleccione Biblioteca");
-			
+
 			switch (opcion) {
-			case 1: submenuLibreria(); break;
-			case 2: submenuLibreria(); break;
-			case 3: submenuLibreria(); break;
-			case 4: System.out.println("Adios");
+			case 1:
+				submenuLibreria();
+				break;
+			case 2:
+				submenuLibreria();
+				break;
+			case 3:
+				submenuLibreria();
+				break;
+			case 4:
+				System.out.println("Adios");
 				cerrarConexion();
 				break;
-			default: System.out.println("Opción incorrecta");
-			}	
-		}while(opcion!=4);
-		
+			default:
+				System.out.println("Opción incorrecta");
+			}
+		} while (opcion != 4);
+
 	}
-	
-	
+
 	private void submenuLibreria() {
 		Biblioteca biblioteca = new Biblioteca();
 		int opcion=0;
@@ -111,8 +114,7 @@ public class BibliotecaMain {
 		}while(opcion!=7);
 		
 	}
-	
-	
+
 	private List<Biblioteca> getBiblioteca () throws SQLException {
 		
 		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
@@ -138,41 +140,41 @@ public class BibliotecaMain {
 			while(rs.next()) {
 				long id = rs.getLong("id");
 				String nombre = rs.getString("nombre");
-				String direccion = rs.getDirecciones();
+				String direccion = getDirecciones();
 			} 
-		return bibliotecas;
-	}
-	
-	private List<Direcciones> getDirecciones () throws SQLException {
-			
-			String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
-			String username = "root";
-			String password = "password";
-			
-			Connection connection = null;
-			PreparedStatement prepareStament=null;
-			ResultSet rs = null;
-			
-			List<Direcciones> direcciones = null;
-			{
-				direcciones = new ArrayList<Direcciones>();
-	
-				while(rs.next()) {
-					long id = rs.getLong("id");
-					String tipoDireccion = rs.getString("tipo_direccion");
-					String direccion = rs.getString("direccion");
-					String ciudad = rs.getString("ciudad");
-					String provincia = rs.getString("provincia");
-					int cp = rs.getInt("cp");
-					
-		//¿¿CÓMO AÑADO TODOS LOS DATOS A LA COLECCIÓN?
-		//AL NO CERRAR LA BASE DE DATOS, SE MANTIENE CONECTADA EN EL MÉTODO DONDE INVOCO A ESTE??
-				} 
-			}
-			
-			return direcciones;
-		}
 		
-	
-	
+	}return bibliotecas;
+		}
+
+	private List<Direcciones> getDirecciones() throws SQLException {
+
+		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
+		String username = "root";
+		String password = "password";
+
+		Connection connection = null;
+		PreparedStatement prepareStament = null;
+		ResultSet rs = null;
+
+		List<Direcciones> direcciones = null;
+		{
+			direcciones = new ArrayList<Direcciones>();
+
+			while (rs.next()) {
+				long id = rs.getLong("id");
+				String tipoDireccion = rs.getString("tipo_direccion");
+				String direccion = rs.getString("direccion");
+				String ciudad = rs.getString("ciudad");
+				String provincia = rs.getString("provincia");
+				int cp = rs.getInt("cp");
+
+				// ¿¿CÓMO AÑADO TODOS LOS DATOS A LA COLECCIÓN?
+				// AL NO CERRAR LA BASE DE DATOS, SE MANTIENE CONECTADA EN EL MÉTODO DONDE
+				// INVOCO A ESTE??
+			}
+		}
+
+		return direcciones;
+	}
+
 }
