@@ -18,7 +18,7 @@ public class BibliotecaMain {
 
 	}
 
-	private void iniciarMenu() throws SQLException {
+	private List<Biblioteca> obtenerBibliotecas() throws SQLException {
 		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
 		String username = "root";
 		String password = "password";
@@ -27,7 +27,7 @@ public class BibliotecaMain {
 		PreparedStatement prepareStament = null;
 		ResultSet rs = null;
 
-		List<Biblioteca> bibliotecas = null;
+		List<Biblioteca> bibliotecas = new ArrayList<Biblioteca>();
 
 		try {
 
@@ -40,8 +40,12 @@ public class BibliotecaMain {
 			rs = prepareStament.executeQuery();
 
 			while (rs.next()) {
-				System.out.println(rs.getLong("id"));
-				System.out.println(rs.getString("nombre"));
+				long id = (rs.getLong("id"));
+				String nombreBiblioteca = (rs.getString("nombre"));
+				int bibliotecaDireccion = (rs.getInt("fk_direccion"));
+				
+				Biblioteca biblioteca = new Biblioteca(id, nombreBiblioteca, bibliotecaDireccion);
+				bibliotecas.add(biblioteca);
 			}
 
 		} catch (SQLException e) {
@@ -62,11 +66,22 @@ public class BibliotecaMain {
 				e.printStackTrace();
 			}
 		}
+		return bibliotecas;
+	}
 
+	private void iniciarMenu() throws SQLException {
+		
+		List<Biblioteca> bibliotecas = obtenerBibliotecas();
 		int opcion = 0;
+		
 		do {
-			String[] preguntas = { "1. Biblioteca 1", "2. Biblioteca 2", "3. Biblioteca 3", "4. Biblioteca 4" };
-			opcion = Utilidades.pintarMenu(preguntas, "Seleccione Biblioteca");
+			int i = 1;
+			for(Biblioteca biblioteca : bibliotecas){
+				System.out.println(i + ". " + biblioteca.getNombreBiblioteca());
+				i++;
+			}
+			System.out.println(bibliotecas.size() + 1 + ". Salir");
+			opcion = Utilidades.pintarMenu("Indique una opción");
 
 			switch (opcion) {
 			case 1:
@@ -113,68 +128,6 @@ public class BibliotecaMain {
 			
 		}while(opcion!=7);
 		
-	}
-
-	private List<Biblioteca> getBiblioteca () throws SQLException {
-		
-		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
-		String username = "root";
-		String password = "password";
-		
-		Connection connection = null;
-		PreparedStatement prepareStament=null;
-		ResultSet rs = null;
-		
-		List<Biblioteca> bibliotecas = null;
-		try {
-			System.out.println("Estableciendo conexión");
-			connection = DriverManager.getConnection(url, username, password);
-			System.out.println("Conexión establecida");
-			
-			prepareStament = connection.prepareStatement(
-					"SELECT * FROM TB_BIBLIOTECA");
-			
-			rs = prepareStament.executeQuery();
-			bibliotecas = new ArrayList<Biblioteca>();
-
-			while(rs.next()) {
-				long id = rs.getLong("id");
-				String nombre = rs.getString("nombre");
-				String direccion = getDirecciones();
-			} 
-		
-	}return bibliotecas;
-		}
-
-	private List<Direcciones> getDirecciones() throws SQLException {
-
-		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
-		String username = "root";
-		String password = "password";
-
-		Connection connection = null;
-		PreparedStatement prepareStament = null;
-		ResultSet rs = null;
-
-		List<Direcciones> direcciones = null;
-		{
-			direcciones = new ArrayList<Direcciones>();
-
-			while (rs.next()) {
-				long id = rs.getLong("id");
-				String tipoDireccion = rs.getString("tipo_direccion");
-				String direccion = rs.getString("direccion");
-				String ciudad = rs.getString("ciudad");
-				String provincia = rs.getString("provincia");
-				int cp = rs.getInt("cp");
-
-				// ¿¿CÓMO AÑADO TODOS LOS DATOS A LA COLECCIÓN?
-				// AL NO CERRAR LA BASE DE DATOS, SE MANTIENE CONECTADA EN EL MÉTODO DONDE
-				// INVOCO A ESTE??
-			}
-		}
-
-		return direcciones;
 	}
 
 }
