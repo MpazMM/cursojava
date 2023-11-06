@@ -5,8 +5,8 @@ public class Libros {
 	private long id;
 	private String titulo;
 	private String autor;
-	private int isbn;
-	private int libroBiblioteca;
+	private String isbn;
+	private long libroBiblioteca;
 	
 	/**
 	 * @param id
@@ -15,7 +15,7 @@ public class Libros {
 	 * @param isbn
 	 * @param libroBiblioteca
 	 */
-	public Libros(long id, String titulo, String autor, int isbn, int libroBiblioteca) {
+	public Libros(long id, String titulo, String autor, String isbn, long libroBiblioteca) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
@@ -40,15 +40,15 @@ public class Libros {
 		this.autor = autor;
 	}
 
-	public int getIsbn() {
+	public String getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(int isbn) {
+	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
 
-	public int getLibroBiblioteca() {
+	public long getLibroBiblioteca() {
 		return libroBiblioteca;
 	}
 
@@ -58,6 +58,12 @@ public class Libros {
 
 	public long getId() {
 		return id;
+	}
+
+	@Override
+	public String toString() {
+		return "Libros [" + (titulo != null ? "titulo=" + titulo + ", " : "")
+				+ (autor != null ? "autor=" + autor + ", " : "") + "isbn=" + isbn + "]";
 	}
 	
 	

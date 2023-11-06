@@ -8,13 +8,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.curso.java.colecciones.ejercicios.guerra.VehiculoGuerra;
 import es.curso.java.introduccion.utils.Utilidades;
 
 public class BibliotecaMain {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		BibliotecaMain bibliotecaMain = new BibliotecaMain();
+		try {
+			bibliotecaMain.iniciarMenu();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -43,7 +47,7 @@ public class BibliotecaMain {
 				long id = (rs.getLong("id"));
 				String nombreBiblioteca = (rs.getString("nombre"));
 				int bibliotecaDireccion = (rs.getInt("fk_direccion"));
-				
+
 				Biblioteca biblioteca = new Biblioteca(id, nombreBiblioteca, bibliotecaDireccion);
 				bibliotecas.add(biblioteca);
 			}
@@ -62,7 +66,6 @@ public class BibliotecaMain {
 				if (rs != null)
 					rs.close();
 			} catch (SQLException e) {
-
 				e.printStackTrace();
 			}
 		}
@@ -70,64 +73,413 @@ public class BibliotecaMain {
 	}
 
 	private void iniciarMenu() throws SQLException {
-		
+
 		List<Biblioteca> bibliotecas = obtenerBibliotecas();
 		int opcion = 0;
-		
+		Biblioteca bibliotecaElegida = null;
 		do {
 			int i = 1;
-			for(Biblioteca biblioteca : bibliotecas){
+			for (Biblioteca biblioteca : bibliotecas) {
 				System.out.println(i + ". " + biblioteca.getNombreBiblioteca());
 				i++;
 			}
-			System.out.println(bibliotecas.size() + 1 + ". Salir");
-			opcion = Utilidades.pintarMenu("Indique una opción");
+			opcion = Utilidades.pintarMenu(bibliotecas.size() + 1 + ". Salir");
+			bibliotecaElegida = bibliotecas.get(opcion - 1);
 
 			switch (opcion) {
 			case 1:
-				submenuLibreria();
+				submenuLibreria(bibliotecaElegida);
 				break;
 			case 2:
-				submenuLibreria();
+				submenuLibreria(bibliotecaElegida);
 				break;
 			case 3:
-				submenuLibreria();
+				submenuLibreria(bibliotecaElegida);
 				break;
 			case 4:
-				System.out.println("Adios");
-				cerrarConexion();
+				System.out.println("Adiós");
 				break;
 			default:
 				System.out.println("Opción incorrecta");
 			}
-		} while (opcion != 4);
+		} while (opcion != bibliotecas.size() + 1);
 
 	}
 
-	private void submenuLibreria() {
-		Biblioteca biblioteca = new Biblioteca();
-		int opcion=0;
+	private void submenuLibreria(Biblioteca biblioteca) throws SQLException {
+		int opcion = 0;
 		do {
-			//Pinta Menu
-			String[] preguntas = {"1. Mostrar info biblioteca","2. Mostrar libros de la biblioteca ",
-					"3. Buscar libro","4. Insertar libro","5. Modificar.","6.Borrar","7.Volver"};
+			// Pinta Menu
+			String[] preguntas = { "1. Mostrar info biblioteca", "2. Mostrar libros de la biblioteca ",
+					"3. Buscar libro", "4. Insertar libro", "5. Modificar.", "6.Borrar", "7.Volver" };
 			opcion = Utilidades.pintarMenu(preguntas, "Elige una opcion");
-			
+
 			switch (opcion) {
-			case 1: infoBiblioteca(biblioteca); break;
-			case 2: catalogoBiblioteca(biblioteca); break;
-			case 3: buscarLibro(biblioteca); break;
-			case 4: insertarLibro(biblioteca); break;
-			case 5: modificarLibro(biblioteca); break;
-			case 6: borrarLibro(biblioteca); break;
-			case 7: volverMenu; break;
-			default: System.out.println("Opción incorrecta");
+			case 1:
+				infoBiblioteca(biblioteca);
+				break;
+			case 2:
+				catalogoBiblioteca(biblioteca);
+				break;
+			case 3:
+				buscarLibro(biblioteca);
+				break;
+			case 4:
+				insertarLibro(biblioteca);
+				break;
+			case 5:
+//				modificarLibro(biblioteca);
+				break;
+//			case 6: borrarLibro(biblioteca); break;
+			case 7: iniciarMenu(); break;
+			default:
+				System.out.println("Opción incorrecta");
 			}
-			
-			
-			
-		}while(opcion!=7);
-		
+
+		} while (opcion != 7);
+
 	}
+
+	private void infoBiblioteca(Biblioteca biblioteca) {
+		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
+		String username = "root";
+		String password = "password";
+
+		Connection connection = null;
+		PreparedStatement prepareStament = null;
+		ResultSet rs = null;
+
+		int direccionBiblioteca = biblioteca.getBibliotecaDireccion();
+		try {
+
+			System.out.println("Estableciendo conexión");
+			connection = DriverManager.getConnection(url, username, password);
+			System.out.println("Conexión establecida");
+
+			prepareStament = connection.prepareStatement("SELECT * FROM TB_DIRECCION WHERE ID=?");
+			prepareStament.setInt(1, direccionBiblioteca);
+
+			rs = prepareStament.executeQuery();
+
+			while (rs.next()) {
+				long id = (rs.getLong("id"));
+				String tipoDireccion = (rs.getString("tipo_direccion"));
+				String direccion = (rs.getString("direccion"));
+				String ciudad = (rs.getString("ciudad"));
+				String provincia = (rs.getString("provincia"));
+				int cp = (rs.getInt("cp"));
+
+				Direcciones direccionBiblio = new Direcciones(id, tipoDireccion, direccion, ciudad, provincia, cp);
+				System.out.println(biblioteca.getNombreBiblioteca() + "\n" + direccionBiblio);
+
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Ha habido un error " + e.getMessage());
+
+		} finally {
+
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (prepareStament != null)
+					prepareStament.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	private void catalogoBiblioteca(Biblioteca biblioteca) {
+		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
+		String username = "root";
+		String password = "password";
+
+		Connection connection = null;
+		PreparedStatement prepareStament = null;
+		ResultSet rs = null;
+
+		long fk_biblioteca = biblioteca.getId();
+		try {
+
+			System.out.println("Estableciendo conexión");
+			connection = DriverManager.getConnection(url, username, password);
+			System.out.println("Conexión establecida");
+
+			prepareStament = connection.prepareStatement("SELECT * FROM TB_LIBROS WHERE FK_BIBLIOTECA=?");
+			prepareStament.setInt(1, (int) fk_biblioteca);
+
+			rs = prepareStament.executeQuery();
+
+			while (rs.next()) {
+				long id = (rs.getLong("id"));
+				String titulo = (rs.getString("titulo"));
+				String autor = (rs.getString("autor"));
+				String codigoLibro = (rs.getString("ISBN"));
+				long libroBiblioteca = (rs.getLong("fk_biblioteca"));
+
+				Libros ejemplar = new Libros(id, titulo, autor, codigoLibro, libroBiblioteca);
+				System.out.println(ejemplar);
+
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Ha habido un error " + e.getMessage());
+
+		} finally {
+
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (prepareStament != null)
+					prepareStament.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private Libros buscarLibro(Biblioteca biblioteca) {
+		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
+		String username = "root";
+		String password = "password";
+
+		Connection connection = null;
+		PreparedStatement prepareStament = null;
+		ResultSet rs = null;
+
+		long fk_biblioteca = biblioteca.getId();
+		String ejemplarBuscado = Utilidades.pideDatoTexto("Introduce el título del libro buscado");
+		boolean ejemplarExiste = false;
+		Libros ejemplar = null;
+
+		try {
+
+			System.out.println("Estableciendo conexión");
+			connection = DriverManager.getConnection(url, username, password);
+			System.out.println("Conexión establecida");
+
+			prepareStament = connection
+					.prepareStatement("SELECT * FROM TB_LIBROS" + " WHERE FK_BIBLIOTECA=? AND TITULO=?");
+			prepareStament.setInt(1, (int) fk_biblioteca);
+			prepareStament.setString(2, ejemplarBuscado);
+
+			rs = prepareStament.executeQuery();
+
+			while (rs.next()) {
+				long id = (rs.getLong("id"));
+				String titulo = (rs.getString("titulo"));
+				String autor = (rs.getString("autor"));
+				String codigoLibro = (rs.getString("ISBN"));
+				long libroBiblioteca = (rs.getLong("fk_biblioteca"));
+
+				ejemplar = new Libros(id, titulo, autor, codigoLibro, libroBiblioteca);
+				System.out.println(ejemplar);
+				ejemplarExiste = true;
+			}
+
+			if (!ejemplarExiste) {
+				System.out.println("El ejemplar no existe en dicha biblioteca");
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Ha habido un error " + e.getMessage());
+
+		} finally {
+
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (prepareStament != null)
+					prepareStament.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return ejemplar;
+	}
+
+	private void insertarLibro(Biblioteca biblioteca) {
+		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
+		String username = "root";
+		String password = "password";
+
+		Connection connection = null;
+		PreparedStatement prepareStament = null;
+		ResultSet rs = null;
+
+		long fk_biblioteca = biblioteca.getId();
+		String tituloLibro = Utilidades.pideDatoTexto("Introduce el título del libro");
+		String autorLibro = Utilidades.pideDatoTexto("Introduce el autor del libro");
+		String isbnLibro = Utilidades.pideDatoTexto("Introduce el isbn del libro");
+
+		try {
+
+			System.out.println("Estableciendo conexión");
+			connection = DriverManager.getConnection(url, username, password);
+			System.out.println("Conexión establecida");
+
+			String insert = "INSERT INTO TB_LIBROS " + "(titulo,autor,ISBN,fk_biblioteca) " + "VALUES (?,?,?,?)";
+
+			prepareStament = connection.prepareStatement(insert);
+			prepareStament.setString(1, tituloLibro);
+			prepareStament.setString(2, autorLibro);
+			prepareStament.setString(3, isbnLibro);
+			prepareStament.setLong(4, fk_biblioteca);
+
+			boolean insertado = prepareStament.execute();
+			System.out.println("Insertado: " + insertado);
+
+		} catch (SQLException e) {
+			System.err.println("Ha habido un error " + e.getMessage());
+
+		} finally {
+
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (prepareStament != null)
+					prepareStament.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+//	private void modificarLibro(Biblioteca biblioteca) {
+//
+//		Libros libroModificado = buscarLibro(biblioteca);
+//
+//		if (libroModificado != null) {
+//
+//			String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
+//			String username = "root";
+//			String password = "password";
+//
+//			Connection connection = null;
+//			PreparedStatement prepareStament = null;
+//			ResultSet rs = null;
+//
+//			long fk_biblioteca = biblioteca.getId();
+//
+//			try {
+//
+//				System.out.println("Estableciendo conexión");
+//				connection = DriverManager.getConnection(url, username, password);
+//				System.out.println("Conexión establecida");
+//
+//				prepareStament = connection
+//						.prepareStatement("SELECT * FROM TB_LIBROS" + " WHERE FK_BIBLIOTECA=? AND TITULO=?");
+//				prepareStament.setInt(1, (int) fk_biblioteca);
+//				prepareStament.setString(2, ejemplarBuscado);
+//
+//				rs = prepareStament.executeQuery();
+//
+//				while (rs.next()) {
+//					long id = (rs.getLong("id"));
+//					String titulo = (rs.getString("titulo"));
+//					String autor = (rs.getString("autor"));
+//					String codigoLibro = (rs.getString("ISBN"));
+//					long libroBiblioteca = (rs.getLong("fk_biblioteca"));
+//
+//					Libros ejemplar = new Libros(id, titulo, autor, codigoLibro, libroBiblioteca);
+//					System.out.println(ejemplar);
+//				}
+//
+//			} catch (SQLException e) {
+//				System.err.println("Ha habido un error " + e.getMessage());
+//
+//			} finally {
+//
+//				try {
+//					if (connection != null) {
+//						connection.close();
+//					}
+//					if (prepareStament != null)
+//						prepareStament.close();
+//					if (rs != null)
+//						rs.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//	}
+//	
+//	private Libros borrarLibro(Biblioteca biblioteca) {
+//		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
+//		String username = "root";
+//		String password = "password";
+//
+//		Connection connection = null;
+//		PreparedStatement prepareStament = null;
+//		ResultSet rs = null;
+//
+//		long fk_biblioteca = biblioteca.getId();
+//		String ejemplarBuscado = Utilidades.pideDatoTexto("Introduce el título del libro a borrar");
+//		boolean ejemplarExiste = false;
+//		Libros ejemplar = null;
+//
+//		try {
+//
+//			System.out.println("Estableciendo conexión");
+//			connection = DriverManager.getConnection(url, username, password);
+//			System.out.println("Conexión establecida");
+//
+//			prepareStament = connection
+//					.prepareStatement("DELETE FROM TB_LIBROS WHERE FK_BIBLIOTECA=? AND TITULO=?");
+//			prepareStament.setInt(1, (int) fk_biblioteca);
+//			prepareStament.setString(2, ejemplarBuscado);
+//
+//			rs = prepareStament.executeQuery();
+//
+//			while (rs.next()) {
+//				long id = (rs.getLong("id"));
+//				String titulo = (rs.getString("titulo"));
+//				String autor = (rs.getString("autor"));
+//				String codigoLibro = (rs.getString("ISBN"));
+//				long libroBiblioteca = (rs.getLong("fk_biblioteca"));
+//
+//				ejemplar = new Libros(id, titulo, autor, codigoLibro, libroBiblioteca);
+//				System.out.println(ejemplar);
+//				ejemplarExiste = true;
+//			}
+//
+//			if (!ejemplarExiste) {
+//				System.out.println("El ejemplar no existe en dicha biblioteca");
+//			}
+//
+//		} catch (SQLException e) {
+//			System.err.println("Ha habido un error " + e.getMessage());
+//
+//		} finally {
+//
+//			try {
+//				if (connection != null) {
+//					connection.close();
+//				}
+//				if (prepareStament != null)
+//					prepareStament.close();
+//				if (rs != null)
+//					rs.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return ejemplar;
+//	}
 
 }

@@ -70,6 +70,14 @@ public class Direcciones {
 	public long getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		return "Direcciones [" + (tipoDireccion != null ? "tipoDireccion=" + tipoDireccion + ", " : "")
+				+ (direccion != null ? "direccion=" + direccion + ", " : "")
+				+ (ciudad != null ? "ciudad=" + ciudad + ", " : "")
+				+ (provincia != null ? "provincia=" + provincia + ", " : "") + "cp=" + cp + "]";
+	}
 	
 	
 	
