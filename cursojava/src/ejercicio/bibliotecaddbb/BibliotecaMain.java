@@ -128,9 +128,9 @@ public class BibliotecaMain {
 				insertarLibro(biblioteca);
 				break;
 			case 5:
-//				modificarLibro(biblioteca);
+				modificarLibro(biblioteca);
 				break;
-//			case 6: borrarLibro(biblioteca); break;
+			case 6: borrarLibro(biblioteca); break;
 			case 7: iniciarMenu(); break;
 			default:
 				System.out.println("Opción incorrecta");
@@ -256,7 +256,7 @@ public class BibliotecaMain {
 		ResultSet rs = null;
 
 		long fk_biblioteca = biblioteca.getId();
-		String ejemplarBuscado = Utilidades.pideDatoTexto("Introduce el título del libro buscado");
+		String ejemplarBuscado = Utilidades.pideDatoTexto("Introduce el título del libro");
 		boolean ejemplarExiste = false;
 		Libros ejemplar = null;
 
@@ -359,127 +359,134 @@ public class BibliotecaMain {
 		}
 	}
 
-//	private void modificarLibro(Biblioteca biblioteca) {
-//
-//		Libros libroModificado = buscarLibro(biblioteca);
-//
-//		if (libroModificado != null) {
-//
-//			String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
-//			String username = "root";
-//			String password = "password";
-//
-//			Connection connection = null;
-//			PreparedStatement prepareStament = null;
-//			ResultSet rs = null;
-//
-//			long fk_biblioteca = biblioteca.getId();
-//
-//			try {
-//
-//				System.out.println("Estableciendo conexión");
-//				connection = DriverManager.getConnection(url, username, password);
-//				System.out.println("Conexión establecida");
-//
-//				prepareStament = connection
-//						.prepareStatement("SELECT * FROM TB_LIBROS" + " WHERE FK_BIBLIOTECA=? AND TITULO=?");
-//				prepareStament.setInt(1, (int) fk_biblioteca);
-//				prepareStament.setString(2, ejemplarBuscado);
-//
-//				rs = prepareStament.executeQuery();
-//
-//				while (rs.next()) {
-//					long id = (rs.getLong("id"));
-//					String titulo = (rs.getString("titulo"));
-//					String autor = (rs.getString("autor"));
-//					String codigoLibro = (rs.getString("ISBN"));
-//					long libroBiblioteca = (rs.getLong("fk_biblioteca"));
-//
-//					Libros ejemplar = new Libros(id, titulo, autor, codigoLibro, libroBiblioteca);
-//					System.out.println(ejemplar);
-//				}
-//
-//			} catch (SQLException e) {
-//				System.err.println("Ha habido un error " + e.getMessage());
-//
-//			} finally {
-//
-//				try {
-//					if (connection != null) {
-//						connection.close();
-//					}
-//					if (prepareStament != null)
-//						prepareStament.close();
-//					if (rs != null)
-//						rs.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//	}
-//	
-//	private Libros borrarLibro(Biblioteca biblioteca) {
-//		String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
-//		String username = "root";
-//		String password = "password";
-//
-//		Connection connection = null;
-//		PreparedStatement prepareStament = null;
-//		ResultSet rs = null;
-//
-//		long fk_biblioteca = biblioteca.getId();
-//		String ejemplarBuscado = Utilidades.pideDatoTexto("Introduce el título del libro a borrar");
-//		boolean ejemplarExiste = false;
-//		Libros ejemplar = null;
-//
-//		try {
-//
-//			System.out.println("Estableciendo conexión");
-//			connection = DriverManager.getConnection(url, username, password);
-//			System.out.println("Conexión establecida");
-//
-//			prepareStament = connection
-//					.prepareStatement("DELETE FROM TB_LIBROS WHERE FK_BIBLIOTECA=? AND TITULO=?");
-//			prepareStament.setInt(1, (int) fk_biblioteca);
-//			prepareStament.setString(2, ejemplarBuscado);
-//
-//			rs = prepareStament.executeQuery();
-//
-//			while (rs.next()) {
-//				long id = (rs.getLong("id"));
-//				String titulo = (rs.getString("titulo"));
-//				String autor = (rs.getString("autor"));
-//				String codigoLibro = (rs.getString("ISBN"));
-//				long libroBiblioteca = (rs.getLong("fk_biblioteca"));
-//
-//				ejemplar = new Libros(id, titulo, autor, codigoLibro, libroBiblioteca);
-//				System.out.println(ejemplar);
-//				ejemplarExiste = true;
-//			}
-//
-//			if (!ejemplarExiste) {
-//				System.out.println("El ejemplar no existe en dicha biblioteca");
-//			}
-//
-//		} catch (SQLException e) {
-//			System.err.println("Ha habido un error " + e.getMessage());
-//
-//		} finally {
-//
-//			try {
-//				if (connection != null) {
-//					connection.close();
-//				}
-//				if (prepareStament != null)
-//					prepareStament.close();
-//				if (rs != null)
-//					rs.close();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return ejemplar;
-//	}
+	private void modificarLibro(Biblioteca biblioteca) {
+
+		Libros libroModificado = buscarLibro(biblioteca);
+
+		if (libroModificado != null) {
+
+			String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
+			String username = "root";
+			String password = "password";
+
+			Connection connection = null;
+			PreparedStatement prepareStament = null;
+			ResultSet rs = null;
+
+			
+			
+			try {
+
+				System.out.println("Estableciendo conexión");
+				connection = DriverManager.getConnection(url, username, password);
+				System.out.println("Conexión establecida");
+				
+				String tituloACambiar = Utilidades.pideDatoTexto("Introduce nuevo titulo, si no quieres cambiar este campo pulsa Enter");
+				String autorACambiar = Utilidades.pideDatoTexto("Introduce nuevo autor, si no quieres cambiar este campo pulsa Enter");
+				String isbnACambiar = Utilidades.pideDatoTexto("Introduce nuevo ISBN, si no quieres cambiar este campo pulsa Enter");
+				
+				 StringBuilder updateQuery = new StringBuilder("UPDATE TB_LIBROS SET ");
+		            List<Object> params = new ArrayList<>();
+
+		            if (!tituloACambiar.isEmpty()) {
+		                updateQuery.append("TITULO=?, ");
+		                params.add(tituloACambiar);
+		            }
+		            if (!autorACambiar.isEmpty()) {
+		                updateQuery.append("AUTOR=?, ");
+		                params.add(autorACambiar);
+		            }
+		            if (!isbnACambiar.isEmpty()) {
+		                updateQuery.append("ISBN=?, ");
+		                params.add(isbnACambiar);
+		            }	
+	
+		            // Eliminar la última coma y espacio
+		            updateQuery.setLength(updateQuery.length() - 2);
+
+		            // Agregar la cláusula WHERE para identificar el libro específico
+		            updateQuery.append(" WHERE TITULO=?");
+		            params.add(libroModificado.getTitulo());
+
+		            prepareStament = connection.prepareStatement(updateQuery.toString());
+
+		            // Establecer los valores de los parámetros
+		            for (int i = 0; i < params.size(); i++) {
+		                prepareStament.setObject(i + 1, params.get(i));
+		            }
+
+		            // Ejecutar la actualización
+		            int elementosModificados = prepareStament.executeUpdate();
+
+
+			} catch (SQLException e) {
+				System.err.println("Ha habido un error " + e.getMessage());
+
+			} finally {
+
+				try {
+					if (connection != null) {
+						connection.close();
+					}
+					if (prepareStament != null)
+						prepareStament.close();
+					if (rs != null)
+						rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	private void borrarLibro(Biblioteca biblioteca) {
+
+		Libros libroBorrar = buscarLibro(biblioteca);
+		System.out.println("j"+libroBorrar);
+		
+		if (libroBorrar != null) {
+
+			String url = "jdbc:mysql://localhost:3306/curso?serverTimezone=Europe/Madrid";
+			String username = "root";
+			String password = "password";
+
+			Connection connection = null;
+			PreparedStatement prepareStament = null;
+			ResultSet rs = null;
+
+			try {
+
+				System.out.println("Estableciendo conexión");
+				connection = DriverManager.getConnection(url, username, password);
+				System.out.println("Conexión establecida");
+
+				prepareStament = connection
+						.prepareStatement("DELETE FROM TB_LIBROS WHERE TITULO=?");
+				prepareStament.setString(1, libroBorrar.getTitulo());
+				
+				int elementosEliminados = prepareStament.executeUpdate();
+				
+				System.out.println("Se ha eliminado: " + elementosEliminados + " libro/s.");
+			} catch (SQLException e) {
+				System.err.println("Ha habido un error " + e.getMessage());
+
+			} finally {
+
+				try {
+					if (connection != null) {
+						connection.close();
+					}
+					if (prepareStament != null)
+						prepareStament.close();
+					if (rs != null)
+						rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}else {
+			System.out.println("El libro no se puede eliminar porque no existe.");
+		}
+	}
 
 }
