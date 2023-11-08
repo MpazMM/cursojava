@@ -156,7 +156,7 @@ public class BibliotecaMain {
 			connection = DriverManager.getConnection(url, username, password);
 			System.out.println("Conexión establecida");
 
-			prepareStament = connection.prepareStatement("SELECT * FROM TB_DIRECCION WHERE ID=?");
+			prepareStament = connection.prepareStatement("SELECT ID, TIPO_DIRECCION, DIRECCION, PROVINCIA, CIUDAD, CP FROM TB_DIRECCION WHERE ID=?");
 			prepareStament.setInt(1, direccionBiblioteca);
 
 			rs = prepareStament.executeQuery();
@@ -210,7 +210,7 @@ public class BibliotecaMain {
 			connection = DriverManager.getConnection(url, username, password);
 			System.out.println("Conexión establecida");
 
-			prepareStament = connection.prepareStatement("SELECT * FROM TB_LIBROS WHERE FK_BIBLIOTECA=?");
+			prepareStament = connection.prepareStatement("SELECT ID, TIPO_DIRECCION, DIRECCION, PROVINCIA, CIUDAD, CP FROM TB_LIBROS WHERE FK_BIBLIOTECA=?");
 			prepareStament.setInt(1, (int) fk_biblioteca);
 
 			rs = prepareStament.executeQuery();
@@ -267,7 +267,7 @@ public class BibliotecaMain {
 			System.out.println("Conexión establecida");
 
 			prepareStament = connection
-					.prepareStatement("SELECT * FROM TB_LIBROS" + " WHERE FK_BIBLIOTECA=? AND TITULO=?");
+					.prepareStatement("SELECT ID, TIPO_DIRECCION, DIRECCION, PROVINCIA, CIUDAD, CP FROM TB_LIBROS WHERE FK_BIBLIOTECA=? AND TITULO=?");
 			prepareStament.setInt(1, (int) fk_biblioteca);
 			prepareStament.setString(2, ejemplarBuscado);
 
@@ -329,7 +329,7 @@ public class BibliotecaMain {
 			connection = DriverManager.getConnection(url, username, password);
 			System.out.println("Conexión establecida");
 
-			String insert = "INSERT INTO TB_LIBROS " + "(titulo,autor,ISBN,fk_biblioteca) " + "VALUES (?,?,?,?)";
+			String insert = "INSERT INTO TB_LIBROS " + "(TITULO,AUTOR,ISBN,FK_BIBLIOTECA) " + "VALUES (?,?,?,?)";
 
 			prepareStament = connection.prepareStatement(insert);
 			prepareStament.setString(1, tituloLibro);
@@ -373,8 +373,6 @@ public class BibliotecaMain {
 			PreparedStatement prepareStament = null;
 			ResultSet rs = null;
 
-			
-			
 			try {
 
 				System.out.println("Estableciendo conexión");
