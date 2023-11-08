@@ -111,7 +111,7 @@ public class BibliotecaMain {
 		do {
 			// Pinta Menu
 			String[] preguntas = { "1. Mostrar info biblioteca", "2. Mostrar libros de la biblioteca ",
-					"3. Buscar libro", "4. Insertar libro", "5. Modificar.", "6.Borrar", "7.Volver" };
+					"3. Buscar libro", "4. Insertar libro", "5. Modificar", "6. Borrar", "7. Volver" };
 			opcion = Utilidades.pintarMenu(preguntas, "Elige una opcion");
 
 			switch (opcion) {
