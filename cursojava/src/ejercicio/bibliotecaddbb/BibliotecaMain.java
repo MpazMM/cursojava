@@ -502,7 +502,8 @@ public class BibliotecaMain {
 			connection = DriverManager.getConnection(url, username, password);
 			System.out.println("Conexión establecida");
 
-			prepareStament = connection.prepareStatement("SELECT biblio.NOMBRE AS NOMBRE_BIBLIOTECA, COUNT(libros.ID) AS TOTAL_LIBROS, AVG(libros.PRECIO) AS PRECIO_MEDIO\r\n"
+			prepareStament = connection.prepareStatement("SELECT biblio.NOMBRE AS NOMBRE_BIBLIOTECA, "
+					+ "COUNT(libros.ID) AS TOTAL_LIBROS, AVG(libros.PRECIO) AS PRECIO_MEDIO\r\n"
 					+ "FROM TB_LIBROS AS libros\r\n"
 					+ "INNER JOIN TB_BIBLIOTECA AS biblio ON libros.FK_BIBLIOTECA = biblio.ID\r\n"
 					+ "GROUP BY libros.FK_BIBLIOTECA\r\n"
