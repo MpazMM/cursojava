@@ -8,11 +8,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 import es.curso.java.introduccion.utils.Utilidades;
 
 public class BibliotecaMain {
 
+	private static final Logger logger = LogManager.getLogger(BibliotecaMain.class);
+	
 	public static void main(String[] args) {
+		logger.info("Comenzando biblioteca");
 		BibliotecaMain bibliotecaMain = new BibliotecaMain();
 		try {
 			bibliotecaMain.iniciarMenu();
@@ -139,7 +146,7 @@ public class BibliotecaMain {
 				System.out.println("Opción incorrecta");
 			}
 
-		} while (opcion != 7);
+		} while (opcion != 8);
 
 	}
 
