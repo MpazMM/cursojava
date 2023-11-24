@@ -6,11 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 
 import es.curso.java.introduccion.utils.Utilidades;
 
@@ -24,7 +24,7 @@ public class BibliotecaMain {
 		try {
 			bibliotecaMain.iniciarMenu();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 
 	}
@@ -347,6 +347,7 @@ public class BibliotecaMain {
 			prepareStament.setString(3, isbnLibro);
 			prepareStament.setLong(4, fk_biblioteca);
 
+		//	int insertado = prepareStament.executeUpdate();
 			boolean insertado = prepareStament.execute();
 			System.out.println("Insertado: " + insertado);
 
@@ -394,7 +395,7 @@ public class BibliotecaMain {
 				String isbnACambiar = Utilidades.pideDatoTexto("Introduce nuevo ISBN, si no quieres cambiar este campo pulsa Enter");
 				
 				 StringBuilder updateQuery = new StringBuilder("UPDATE TB_LIBROS SET ");
-		            List<Object> params = new ArrayList<>();
+		            List<Object> params = new LinkedList<>();
 
 		            if (!tituloACambiar.isEmpty()) {
 		                updateQuery.append("TITULO=?, ");
@@ -425,6 +426,7 @@ public class BibliotecaMain {
 
 		            // Ejecutar la actualización
 		            int elementosModificados = prepareStament.executeUpdate();
+		            logger.debug(elementosModificados);
 
 
 			} catch (SQLException e) {
