@@ -8,7 +8,9 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
 public class HibernateEliminar {
+	
     public static void main(String[] args) {
+    	
         String nombre = Utilidades.pideDatoTexto("Ingrese el nombre del usuario a eliminar:");
         EntityManager em = JpaUtil.getEntityManager();
         

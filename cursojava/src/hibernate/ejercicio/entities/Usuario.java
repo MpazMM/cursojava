@@ -36,8 +36,7 @@ public class Usuario {
 		super();
 	}
 
-	
-	
+		
 	/**
 	 * @param nombre
 	 * @param apellidos
@@ -51,8 +50,6 @@ public class Usuario {
 		this.dni = dni;
 		this.fechaAlta = fechaAlta;
 	}
-
-
 
 	/**
 	 * @param id
