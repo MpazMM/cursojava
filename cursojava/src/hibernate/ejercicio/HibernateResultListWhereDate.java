@@ -15,10 +15,10 @@ public class HibernateResultListWhereDate {
     public static void main(String[] args) {
 
         EntityManager em = JpaUtil.getEntityManager();
-        Query query = em.createQuery("from Usuario u where u.nombre=?1", Usuario.class);
-        String nombre = Utilidades.pideDatoTexto("Ingrese el nombre: ");
+        Query query = em.createQuery("from Usuario u where extract(year from u.fechaAlta) = ?1", Usuario.class);
+        int fecha = Utilidades.pideDatoNumerico("Ingrese el año: ");
        
-        query.setParameter(1, nombre);
+        query.setParameter(1, fecha);
 //        query.setMaxResults(1);
         List<Usuario> usuarios = query.getResultList();
         usuarios.forEach(usuario->System.out.println(usuario));

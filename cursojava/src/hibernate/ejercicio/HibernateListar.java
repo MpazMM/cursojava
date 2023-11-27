@@ -20,10 +20,13 @@ public class HibernateListar {
         Usuario usuario1 = new Usuario("Nombre1","Apellido1","DNI1", obtenerFechaActual());
         Usuario usuario2 = new Usuario("Nombre2","Apellido2","DNI2", obtenerFechaActual());
         Usuario usuario3 = new Usuario("Nombre3","Apellido3","DNI3", obtenerFechaActual());
+        Usuario usuario4 = new Usuario("Nombre4","Apellido4","DNI4", obtenerFechaActual1());
+        
         em.getTransaction().begin();
         em.persist(usuario1);
         em.persist(usuario2);
         em.persist(usuario3);
+        em.persist(usuario4);
         em.getTransaction().commit();
         
         List<Usuario> usuarios = em.createQuery("from Usuario", Usuario.class).getResultList();
@@ -35,5 +38,11 @@ public class HibernateListar {
     
 	  private static Date obtenerFechaActual() {
 	        return Calendar.getInstance().getTime();
+	    }
+	  
+	  private static Date obtenerFechaActual1() {
+    		Calendar c = Calendar.getInstance();
+    		c.set(Calendar.YEAR,2024);
+    		return c.getTime();
 	    }
 }
