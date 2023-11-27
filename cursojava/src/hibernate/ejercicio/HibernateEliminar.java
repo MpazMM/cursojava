@@ -15,7 +15,6 @@ public class HibernateEliminar {
         EntityManager em = JpaUtil.getEntityManager();
         
         try {
-            // Realiza una consulta para obtener el usuario por su nombre
             Query query = em.createQuery("from Usuario u where u.nombre=?1");
             query.setParameter(1, nombre);
             Usuario usuario = (Usuario) query.getSingleResult();
