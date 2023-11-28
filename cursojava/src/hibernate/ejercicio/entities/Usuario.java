@@ -14,8 +14,8 @@ import jakarta.persistence.Table;
 public class Usuario {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private long id;
 	
 	@Column(length = 20)
 	private String nombre;
@@ -58,7 +58,7 @@ public class Usuario {
 	 * @param dni
 	 * @param fechaAlta
 	 */
-	public Usuario(Long id, String nombre, String apellidos, String dni, Date fechaAlta) {
+	public Usuario(long id, String nombre, String apellidos, String dni, Date fechaAlta) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -67,11 +67,11 @@ public class Usuario {
 		this.fechaAlta = fechaAlta;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -107,11 +107,14 @@ public class Usuario {
 		this.fechaAlta = fechaAlta;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Usuario [" + (id != null ? "id=" + id + ", " : "") + (nombre != null ? "nombre=" + nombre + ", " : "")
+		return "Usuario [id=" + id + ", " + (nombre != null ? "nombre=" + nombre + ", " : "")
 				+ (apellidos != null ? "apellidos=" + apellidos + ", " : "") + (dni != null ? "dni=" + dni + ", " : "")
 				+ (fechaAlta != null ? "fechaAlta=" + fechaAlta : "") + "]";
 	}
+
+
 	
 }
