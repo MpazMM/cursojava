@@ -16,7 +16,7 @@ public class HibernateListar {
 	private static final Logger logger = LogManager.getLogger(HibernateListar.class);
     public static void main(String[] args) {
     	logger.debug("Empezando");
-        EntityManager em = JpaUtil.getEntityManager();
+        EntityManager em = JpaUtil.getEM("hibernateOracle");
         Usuario usuario1 = new Usuario("Nombre1","Apellido1","DNI1", obtenerFechaActual());
         Usuario usuario2 = new Usuario("Nombre2","Apellido2","DNI2", obtenerFechaActual());
         Usuario usuario3 = new Usuario("Nombre3","Apellido3","DNI3", obtenerFechaActual());

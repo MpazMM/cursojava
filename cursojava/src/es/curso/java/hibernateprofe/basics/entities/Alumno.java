@@ -1,4 +1,4 @@
-package hibernate.basics.entities;
+package es.curso.java.hibernate.basics.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import jakarta.persistence.Transient;
 @Table(name = "TB_ALUMNO")
 public class Alumno {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String nombre;
@@ -21,7 +21,7 @@ public class Alumno {
 	@Column(length = 9, name = "DNI_ALUMNO", unique = true)
 	private String dni;
 	
-	private String usuario;
+	private String user;
 	
 	@Transient
 	private int edad;
@@ -30,32 +30,32 @@ public class Alumno {
 		super();
 	}
 
-	public Alumno(Long id, String nombre, String apellidos, String dni, String usuario, int edad) {
+	public Alumno(Long id, String nombre, String apellidos, String dni, String user, int edad) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.dni = dni;
-		this.usuario = usuario;
+		this.user = user;
 		this.edad = edad;
 	}
 
 
-	public Alumno(String nombre, String apellidos, String dni, String usuario) {
+	public Alumno(String nombre, String apellidos, String dni, String user) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.dni = dni;
-		this.usuario = usuario;
+		this.user = user;
 	}
 
-	public Alumno(Long id, String nombre, String apellidos, String dni, String usuario) {
+	public Alumno(Long id, String nombre, String apellidos, String dni, String user) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.dni = dni;
-		this.usuario = usuario;
+		this.user = user;
 	}
 
 	public String getNombre() {
@@ -81,11 +81,11 @@ public class Alumno {
 		this.dni = dni;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public String getUser() {
+		return user;
 	}
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 	
@@ -108,7 +108,7 @@ public class Alumno {
 	@Override
 	public String toString() {
 		return "Alumno [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", dni=" + dni + ", user="
-				+ usuario + "]";
+				+ user + "]";
 	}
 	
 }
