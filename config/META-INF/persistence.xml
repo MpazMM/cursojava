@@ -27,7 +27,7 @@
         <!-- entidades o entities -->
         <class>hibernate.basics.entities.Cliente</class>
 		<class>hibernate.basics.entities.Alumno</class>
-		<class>hibernate.ejercicio.entities.Usuario</class>
+<!-- 		<class>hibernate.ejercicio.entities.Usuario</class> -->
 		<class>hibernate.ejercicio2.UsuarioOracle</class>
         
         
