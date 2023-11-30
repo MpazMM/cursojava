@@ -50,6 +50,9 @@ public class Consulta {
 		File archivo = new File(nombre);
 
 		logger.info("Creando archivo");
+		
+		//El false es para sobreescribir con el append
+		//Añadir la información
 		try (BufferedWriter buffer = new BufferedWriter(new FileWriter(archivo, false))) {
 
 			buffer.append("ID, NOMBRE, APELLIDOS, DNI, FECHA ALTA");
@@ -75,7 +78,7 @@ public class Consulta {
 				logger.info(usuario.toString());
 
 			}
-			System.out.println("El archivo se ha creado con éxito!");
+			logger.info("El archivo se ha creado con éxito");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
