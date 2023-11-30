@@ -28,7 +28,8 @@
         <class>hibernate.basics.entities.Cliente</class>
 		<class>hibernate.basics.entities.Alumno</class>
 <!-- 		<class>hibernate.ejercicio.entities.Usuario</class> -->
-		<class>hibernate.ejercicio2.UsuarioOracle</class>
+		<class>hibernate.ejercicio2.entities.UsuarioOracle</class>
+		<class>hibernate.ejercicio2.entities.ProductoOracle</class>
         
         
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
