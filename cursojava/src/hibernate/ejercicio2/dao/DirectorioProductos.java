@@ -36,9 +36,9 @@ public class DirectorioProductos {
 		insertarProductos(productoDAO);
 		//Mostrar los productos
 		mostrarProductos(productoDAO);
-		//Mostrar por fecha
+		//Mostrar por fecha (pidiendo fecha)
 		
-		
+		//Mostrar media precio por tipo producto y total de productos
 
 	}
 	
