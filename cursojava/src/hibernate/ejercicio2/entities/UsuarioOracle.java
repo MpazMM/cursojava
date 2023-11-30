@@ -1,4 +1,4 @@
-package hibernate.ejercicio2;
+package hibernate.ejercicio2.entities;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "TB_USUARIO")
+@Table(name = "TB_USUARIOORACLE")
 public class UsuarioOracle {
 
 	@Id

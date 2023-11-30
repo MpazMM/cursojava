@@ -23,7 +23,7 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Logger name="curso.java.jdbc" level="info" additivity="false">
+		<Logger name="hibernate" level="debug" additivity="false">
 			<AppenderRef ref="LogToConsole" />
 		</Logger>
 		<Logger name="curso.java.hibernate" level="debug"
@@ -31,7 +31,7 @@
 			<AppenderRef ref="LogToConsole" />
 			 <AppenderRef ref="rollingFile"/>
 		</Logger>
-		<Root level="debug">
+		<Root level="error">
 			<AppenderRef ref="LogToConsole" />
 			 <AppenderRef ref="rollingFile"/>
 		</Root>
