@@ -59,7 +59,6 @@ public class Consulta {
 			buffer.newLine();
 
 			List<UsuarioOracle> usuarios = usuarioDAO.getUsers();
-			Date fechaAlta;
 
 			for (UsuarioOracle usuario : usuarios) {
 				buffer.append(String.valueOf(usuario.getId()) + "\t");
@@ -70,9 +69,9 @@ public class Consulta {
 				logger.info("Incluyendo apellidos");
 				buffer.append(usuario.getDni() + "\t");
 
-				fechaAlta = usuario.getFechaAlta();
+//				fechaAlta = usuario.getFechaAlta();
 				SimpleDateFormat fechaFormateada = new SimpleDateFormat("yyyyMMdd");
-				String fechaStr = fechaFormateada.format(fechaAlta);
+				String fechaStr = fechaFormateada.format(usuario.getFechaAlta());
 				buffer.append(fechaStr);
 				buffer.newLine();
 				logger.info(usuario.toString());
