@@ -117,10 +117,12 @@ public class DirectorioProductos {
 				String nombre = datos[0];
 				String tipo = datos[1];
 
+				
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				String fechaStr = datos[2];
-
+				
 				Date fechaAlta = df.parse(fechaStr);
+				//Date fechaAlta = df.parse(datos[2]);
 				logger.info("Fecha alta " + fechaAlta);
 
 				int precio = Integer.parseInt(datos[3]);
