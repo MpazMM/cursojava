@@ -7,6 +7,7 @@ import hibernate.ejercicio2.entities.ProductoOracle;
 import hibernate.util.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 public class ProductoHibernateDAO {
 	
@@ -45,14 +46,17 @@ public class ProductoHibernateDAO {
 	}
 	
 	public List<ProductoOracle> getProductosByDate (Date fechaConsulta){
-		List<ProductoOracle> productos;
 		
-		Query query = em.createQuery(
+		TypedQuery<ProductoOracle> query = em.createQuery(
 				"from ProductoOracle po where po.fechaAlta=?1", 
 				ProductoOracle.class);
 		
+//		Query query = em.createQuery(
+//				"from ProductoOracle po where po.fechaAlta=?1", 
+//				ProductoOracle.class);
+		
 		query.setParameter(1, fechaConsulta);
-		productos = query.getResultList();
+		List<ProductoOracle> productos = query.getResultList();
 		
 		return productos;
 	}
@@ -62,8 +66,8 @@ public class ProductoHibernateDAO {
 		List<Object[]> operations;
 
 		Query query = em.createQuery(
-				"select po.tipo, avg(po.precio) as precioMedio, sum(po.unidades) as totalUnidades "
-				+ "from ProductoOracle po group by po.tipo");
+				"select po.tipo, round (avg(po.precio),2) as precioMedio, sum(po.unidades) "
+				+ "as totalUnidades from ProductoOracle po group by po.tipo");
 
 		operations = query.getResultList();
 		

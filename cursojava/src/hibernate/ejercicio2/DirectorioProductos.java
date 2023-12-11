@@ -50,7 +50,10 @@ public class DirectorioProductos {
 		logger.info("Entrando a mostrar las operaciones");
 		List<Object[]> operaciones = productoDao.operationsProductos();
 		for (Object[] operacion : operaciones) {
-			System.out.println(operacion[0] + " " + operacion[1] + " " + operacion[2]);
+			for(int i = 0; i<operacion.length; i++) {
+				System.out.println(operacion[i]);
+			}
+			System.out.println("==============================");
 		}
 	}
 
