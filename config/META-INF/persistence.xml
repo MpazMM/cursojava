@@ -30,6 +30,10 @@
 <!-- 		<class>hibernate.ejercicio.entities.Usuario</class> -->
 		<class>hibernate.ejercicio2.entities.UsuarioOracle</class>
 		<class>hibernate.ejercicio2.entities.ProductoOracle</class>
+		<class>hibernate.unounounidireccional.entities.Biblioteca</class>
+		<class>hibernate.unounounidireccional.entities.Direccion</class>
+		<class>relations.unomuchos.entities.Libro</class>
+		<class>relations.unomuchos.entities.Persona</class>
         
         
         <exclude-unlisted-classes>true</exclude-unlisted-classes>

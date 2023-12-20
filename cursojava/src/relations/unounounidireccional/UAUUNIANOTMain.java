@@ -1,28 +1,25 @@
-package hibernate.unounounidireccional;
+package es.curso.java.hibernate.relations.unounounidireccional;
 
-import hibernate.unounounidireccional.entities.Direccion;
+import es.curso.java.hibernate.relations.unounounidireccional.entities.Direccion;
+import es.curso.java.hibernate.relations.unounounidireccional.entities.Persona;
 import es.curso.java.hibernate.util.JpaUtil;
-import hibernate.unounounidireccional.entities.Biblioteca;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 public class UAUUNIANOTMain {
 
-
 	/**
-	 * 
 	 * @param args
-	 *   
 	 */
 	public static void main(String[] args) {
-		Biblioteca biblioteca1 = new Biblioteca();
-		biblioteca1.setNombre("Biblioteca1");
+		Persona persona1 = new Persona();
+		persona1.setNombre("Persona que sera borrada");
 
-		Biblioteca biblioteca2 = new Biblioteca();
-		biblioteca2.setNombre("Biblioteca2");
+		Persona persona2 = new Persona();
+		persona2.setNombre("Persona que permanecera");
 
-		Biblioteca biblioteca3 = new Biblioteca(); 
-		biblioteca3.setNombre("Biblioteca3");
+		Persona persona3 = new Persona(); 
+	    persona3.setNombre("Persona sin direccion");
 	    
 		Direccion direccion1 = new Direccion();
 		direccion1.setCalle("Calle 1");
@@ -32,8 +29,8 @@ public class UAUUNIANOTMain {
 		direccion2.setCalle("Calle 2");
 		direccion2.setCodigoPostal("54321");
 
-		biblioteca1.setDireccion(direccion1);
-		biblioteca2.setDireccion(direccion2);
+		persona1.setDireccion(direccion1);
+		persona2.setDireccion(direccion2);
 
 		EntityManager em = JpaUtil.getEM("hibernateOracle");
 		EntityTransaction transaction = em.getTransaction();
@@ -51,24 +48,19 @@ public class UAUUNIANOTMain {
 		 * Persona los objetos Direccion se almacenaran en cascada
 		 */
 		transaction.begin();
-		em.persist(biblioteca1);
-		em.persist(biblioteca2);
-		em.persist(biblioteca3);
+		em.persist(persona1);
+		em.persist(persona2);
+		em.persist(persona3);
 		transaction.commit();
 
-		/*
-		 * 
-		 */
 
 		/*
 		 * En la segunda sesion eliminamos el objeto persona1, la direccion1
 		 * sera borrada en cascada
 		 */
 		transaction.begin();
-		em.remove(biblioteca1);
+		em.remove(persona1);
 		transaction.commit();
-		
-		
 		
 		System.exit(0);
 	}
