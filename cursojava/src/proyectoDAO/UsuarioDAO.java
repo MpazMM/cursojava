@@ -72,9 +72,9 @@ public class UsuarioDAO {
 
 	}
 
-	public void modificarUsuarioPorDni(String usuario, Usuario userModified) {
+	public void modificarUsuarioPorUsuario(String usuario, Usuario userModified) {
 
-		TypedQuery<Usuario> query = em.createQuery("from UserEntity where dni=?1", Usuario.class);
+		TypedQuery<Usuario> query = em.createQuery("from UserEntity where usuario=?1", Usuario.class);
 		query.setParameter(1, usuario);
 
 		try {
