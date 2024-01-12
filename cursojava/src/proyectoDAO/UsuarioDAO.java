@@ -2,7 +2,6 @@ package proyectoDAO;
 
 import java.util.List;
 
-import es.curso.java.hibernate.ejercicios.ejercicio2.entities.Producto;
 import jakarta.persistence.EntityManager;
 import proyecto.Usuario;
 

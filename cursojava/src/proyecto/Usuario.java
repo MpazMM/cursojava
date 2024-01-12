@@ -32,7 +32,7 @@ public class Usuario {
 	private String emailUsuario;
 	private int telefono;
 	private Date fechaNacimiento;
-	 @OneToOne (cascade={CascadeType.ALL})
+	 @OneToOne
 	    @JoinColumn (name = "FK_ROLUSUARIO", foreignKey = @ForeignKey (name = "FK_ROLUSUARIO"))
 	    private RolUsuario rolUsuario;
 	
