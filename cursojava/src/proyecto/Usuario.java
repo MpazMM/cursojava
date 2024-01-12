@@ -1,8 +1,9 @@
 package proyecto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -10,7 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -32,9 +33,9 @@ public class Usuario {
 	private String emailUsuario;
 	private int telefono;
 	private Date fechaNacimiento;
-	 @OneToOne
+	@ManyToMany
 	    @JoinColumn (name = "FK_ROLUSUARIO", foreignKey = @ForeignKey (name = "FK_ROLUSUARIO"))
-	    private RolUsuario rolUsuario;
+	    private List<RolUsuario> rolesUsuario = new ArrayList<RolUsuario>();
 	
 	/**
 	 * 
@@ -123,28 +124,26 @@ public class Usuario {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public RolUsuario getRolUsuario() {
-		return rolUsuario;
+	public List<RolUsuario> getRolesUsuario() {
+		return rolesUsuario;
 	}
 
-	public void setRolUsuario(RolUsuario rolUsuario) {
-		this.rolUsuario = rolUsuario;
+	public void setRolesUsuario(List<RolUsuario> rolesUsuario) {
+		this.rolesUsuario = rolesUsuario;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [" + (usuario != null ? "usuario=" + usuario + ", " : "")
+		return "Usuario [idUsuario=" + idUsuario + ", " + (usuario != null ? "usuario=" + usuario + ", " : "")
 				+ (nombreUsuario != null ? "nombreUsuario=" + nombreUsuario + ", " : "")
 				+ (apellidosUsuario != null ? "apellidosUsuario=" + apellidosUsuario + ", " : "")
 				+ (dniUsuario != null ? "dniUsuario=" + dniUsuario + ", " : "")
-				+ (sexo != null ? "sexo=" + sexo + ", " : "") + "idUsuario=" + idUsuario + ", "
-				+ (password != null ? "password=" + password + ", " : "")
+				+ (sexo != null ? "sexo=" + sexo + ", " : "") + (password != null ? "password=" + password + ", " : "")
 				+ (emailUsuario != null ? "emailUsuario=" + emailUsuario + ", " : "") + "telefono=" + telefono + ", "
 				+ (fechaNacimiento != null ? "fechaNacimiento=" + fechaNacimiento + ", " : "")
-				+ (rolUsuario != null ? "rolUsuario=" + rolUsuario : "") + "]";
+				+ (rolesUsuario != null ? "rolesUsuario=" + rolesUsuario : "") + "]";
 	}
-	
-	
-	
+
+
 	
 }
