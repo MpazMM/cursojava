@@ -34,6 +34,8 @@
 		<class>hibernate.unounounidireccional.entities.Direccion</class>
 		<class>relations.unomuchos.entities.Libro</class>
 		<class>relations.unomuchos.entities.Persona</class>
+		<class>proyecto.Usuario</class>
+		<class>proyecto.RolUsuario</class>
         
         
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
@@ -44,7 +46,7 @@
             <property name="jakarta.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
             <property name="hibernate.show_sql" value="true"/>
- 			<property name="hibernate.hbm2ddl.auto" value="create"/>
+ 			<property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
     
