@@ -70,4 +70,11 @@ public enum TornilloEnum {
 	}
 	
 
+	@Override
+	public String toString() {
+		return "TornilloEnum [id=" + id + ", " + (color != null ? "color=" + color + ", " : "") + "longitud=" + longitud
+				+ ", diametro=" + diametro + ", precio=" + precio + "]";
+	}
+	
+	
 }
