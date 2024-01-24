@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 public class FerreteriaMain{
@@ -28,6 +29,17 @@ public class FerreteriaMain{
 	    Arrays.asList(tornillos).forEach(tornillo -> contador[0] += tornillo.getPrecio());
 
 	    System.out.println("Total de precios de tornillos: " + contador[0]);
+
+	    //A partir de una lista podemos generar un objeto de tipo Stream (flujo continuo de datos).
+	    //El stream es un for, filter un if, mapToDouble (suma los precios)
+	    
+	  /*  List<TornilloEnum> listaTornillos = Arrays.asList(TornilloEnum.values());
+	   		*  double precioTotal = listaTornillos
+	   		*  				 .stream()
+	   		*  				 .filter(tornillo->tornillo.getPrecio()) 
+	   		*  				 .mapToDouble(tornillo->tornillo.getPrecio()) o .mapToDouble(Tornillo::getPrecio)
+	   		*  				 .sum();
+	   */    
 	}
 
 	public void datosFerreteria() throws IOException {
@@ -37,6 +49,7 @@ public class FerreteriaMain{
 		TornilloEnum[] tornillos = TornilloEnum.values();
 		String idString = p.getProperty("ferreteria.id");
 		long id = Long.parseLong(idString);
+		//long id = Long.parseLong(p.getProperty("ferreteria.id"));
 		Ferreteria ferreteria1 = new Ferreteria(id, p.getProperty("ferreteria.nombre"),
 				p.getProperty("ferreteria.direccion"), tornillos);
 		System.out.println(ferreteria1);
